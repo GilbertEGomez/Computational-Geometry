@@ -1,0 +1,120 @@
+import java.awt.*;
+
+/**
+ * This class represents a point given by its x and y coordinates.
+ */
+public class Point extends GeometricObject {
+    private double x;
+    private double y;
+
+    /**
+     * Instantiates a Point object with coordinates (0,0) abnd parent's
+     * default options.
+     */
+
+     public Point()
+     {
+         x = y = 0;
+     }
+
+     /**
+      * Instantiates a Point object with coordinates (x,y and parent's
+      default options.
+      @param x x-coordinate
+      @param y y-coordinate
+      */
+      public Point(double x, double y)
+      {
+          this.x = x;
+          this.y = y;
+      }
+
+      /**
+       * Returns the x coordinate of this point.
+       * @return x-coordinate
+       */
+      public double getX()
+      {
+          return x;
+      }
+
+      /**
+       * Returns the y coordinate of this point.
+       * @return y-coordinate
+       */
+      public double getY()
+      {
+          return y;
+      }
+
+      /**
+       * Sets the x-coordinate of this point.
+       * @param x x-coordinate
+       */
+      public void setX(double x)
+      {
+          this.x = x;
+      }
+
+      /**
+       * Sets the y-coordinate of this point.
+       * 
+       * @param y y-coordinate
+       * 
+       */
+      public void setY(double y)
+      {
+          this.y = y;
+      }
+
+      /**
+       * Constructs a String description of this point.
+       * 
+       * @return String containing a description of this point
+       */
+      @Override
+      public String toString() {
+        return "Point (" + x + ", " + y + ") " + super.toString();
+
+      }
+
+      public void draw (Graphics g)
+      {
+          int radius = 5;
+          g.setColor(getInteriorColor());
+          g.fillOval((int)x-radius, (int)y-radius, 2*radius, 2*radius);
+          g.setColor(getBoundaryColor());
+          g.drawOval((int)x-radius, (int)y-radius, 2*radius, 2*radius);
+      }
+
+      /**
+       * Translates this point by given vector.
+       * @param v given vector
+       */
+        public void translate(Vector v) {
+            x += v.getX();
+            y += v.getY();
+        }
+
+        // Add rotate method here
+        public void rotate(double angle) {
+            double angleRadians = Math.toRadians(angle);
+            double sine = Math.sin(angleRadians);
+            double cosine = Math.cos(angleRadians);
+            double x1 = x * cosine - y * sine;
+            double y1 = x * sine + y * cosine;
+
+            x = x1;
+            y = y1;
+        }
+        //Get distance between two points
+        public double distance(Point p) {
+            double x1 = p.getX();
+            double y1 = p.getY();
+            double x2 = x;
+            double y2 = y;
+            double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+            return distance;
+        }
+    
+}
